@@ -1,0 +1,12 @@
+方法获取data中的数据通过this.数据获取
+
+方法设置data中的数据通过this.数据=''设置
+
+例如通过this.list=[1,2,3]，设置list的值，让页面出循环list
+
+ 
+
+可通过 @click="run('123')"，将值传到方法中
+
+可通过 @click="run($event)"，将事件对象传到方法中，然后根据事件对象的e.srcElement设置点击标签的属性，也可以通过e.srcElement.dataset获取自定义属性
+
