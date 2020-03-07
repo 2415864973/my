@@ -1,5 +1,6 @@
 var { Email } = require('../untils/config.js');
 var Usermodel = require('../models/users.js');
+const jwt = require('../untils/token.js');
 
 //post登录
 var login = async (req,res,next)=>{
@@ -13,8 +14,10 @@ var login = async (req,res,next)=>{
         var result = await Usermodel.findLogin({username,password});
         if(result){
             req.session.username=username;
+            var token = await jwt.createToken(result._id,req.sessionID);
             res.send({
                 msg:'登录成功--',
+                token:token,
                 status:0
             })
         }else{
@@ -103,17 +106,24 @@ var verify = async (req,res,next)=>{
 
 //get获取用户信息
 var getUser = async (req,res,next)=>{
-    if(req.session.username){
-        res.send({
-            msg:'获取用户信息成功--',
-            status:0,
-            data:{
-                username:req.session.username
-            }
-        });
+    var {token} = req.query;
+    if(token){
+        var result = await jwt.checkToken(token);
+        if(result){
+            res.send({
+                msg:'获取用户信息成功--',
+                status:0,
+                data:result
+            });
+        }else{
+            res.send({
+                msg:'参数非法',
+                data:result
+            })
+        }
     }else{
         res.send({
-            msg:'获取用户信息失败--',
+            msg:'缺少必要参数--',
             status:-1
         });
     }

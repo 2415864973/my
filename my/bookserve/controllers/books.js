@@ -74,9 +74,13 @@ var saveBook = async (req,res,next)=>{
 
 //get
 var getImg = async (req,res,next)=>{
+    req.session.username='man';
     var {params} = req;
+    //console.log(req)
+    var data = req.sessionID;
     res.send({
-        msg:'ok'
+        msg:'ok',
+        str:data
     })
 }
 

@@ -1,0 +1,31 @@
+一、users相关
+    1./api/users/login
+        登录post请求---body{username,password}
+
+    2./api/users/register
+        注册post---{ username , password , email , verify } = req.body;
+
+    3./api/users/logout
+        退出get
+
+    4./api/users/verify?email=
+        邮箱验证get
+
+    5./api/users/getUser
+        获取用户信息get
+
+    6./api/users/findPassword
+        找回密码post---{ email , password , verify } = req.body;
+二、books相关
+    1./api/books/getBookList
+        获取书籍列表get---{classification,bookName} = req.query;
+    
+    2./api/books/getImg/:range/:imgName
+        获取图片get---{params} = req;
+        range:w.h,   imgName:图片名
+
+    3./api/books/saveBook
+        存储书籍post---{bookName,bookTitleImg,bookInfo,otherImg,classification,dataUrl}=req.body; {token}=req.headers;
+
+    4./api/books/getBook
+        获取书籍get---{bookName,page} = req.query;
